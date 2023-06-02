@@ -10,12 +10,12 @@ import QuickMessageScreen from './screens/QuickMessageScreen';
 
 const Stack = createStackNavigator();
 
-export default function App() {
+const App = () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator>
+      <Stack.Navigator initialRouteName="Home">
         <Stack.Screen name="Home" component={HomeScreen} />
-        <Stack.Screen name="Profiel" component={ProfileScreen} />
+        <Stack.Screen name="Profile" component={ProfileScreen} />
         <Stack.Screen name="Neighbours circle" component={NeighbourcircleScreen} />
         <Stack.Screen name="Buurtkaart" component={NeighbourMapScreen} />
         <Stack.Screen name="Snel Berichten" component={QuickMessageScreen} />
@@ -23,6 +23,6 @@ export default function App() {
     </NavigationContainer>
   );
 }
-
+export default App;
 
 
