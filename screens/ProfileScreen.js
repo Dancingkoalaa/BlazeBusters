@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, View, Text } from 'react-native';
+import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const ProfileScreen = () => {
+const ProfileScreen = ({ navigation }) => {
   const [fullName, setFullName] = useState('');
   const [skills, setSkills] = useState('');
   const [disability, setDisability] = useState('');
@@ -30,13 +30,17 @@ const ProfileScreen = () => {
         setAge(parsedProfileData.age);
         setPets(parsedProfileData.pets);
         setHouseholdMembers(parsedProfileData.householdMembers);
-        setAge(parsedProfileData.spokenLanguages);
+        setSpokenLanguages(parsedProfileData.spokenLanguages);
         setNonResuscitation(parsedProfileData.nonResuscitation);
         setBio(parsedProfileData.bio);
       }
     } catch (error) {
       console.log('Error loading profile:', error);
     }
+  };
+
+  const navigateToEditProfile = () => {
+    navigation.navigate('Edit profile');
   };
 
   return (
@@ -52,6 +56,10 @@ const ProfileScreen = () => {
       <Text>Resuscitation?: {nonResuscitation}</Text>
       <Text>Spoken languages: {spokenLanguages}</Text>
       <Text>About me: {bio}</Text>
+
+      <TouchableOpacity style={styles.editButton} onPress={navigateToEditProfile}>
+        <Text style={styles.editButtonText}>Edit Profile</Text>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -60,6 +68,18 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 16,
+  },
+  editButton: {
+    marginTop: 16,
+    backgroundColor: '#ccc',
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 4,
+    alignSelf: 'flex-start',
+  },
+  editButtonText: {
+    color: 'white',
+    fontWeight: 'bold',
   },
 });
 

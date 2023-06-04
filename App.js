@@ -7,6 +7,7 @@ import ProfileScreen from './screens/ProfileScreen';
 import NeighbourcircleScreen from './screens/NeighbourcircleScreen';
 import NeighbourMapScreen from './screens/NeighbourMapScreen';
 import QuickMessageScreen from './screens/QuickMessageScreen';
+import ProfileEditScreen from './screens/user-profile/ProfileEditScreen';
 
 const Stack = createStackNavigator();
 
@@ -19,6 +20,7 @@ const App = () => {
         <Stack.Screen name="Neighbours circle" component={NeighbourcircleScreen} />
         <Stack.Screen name="Buurtkaart" component={NeighbourMapScreen} />
         <Stack.Screen name="Snel Berichten" component={QuickMessageScreen} />
+        <Stack.Screen name="Edit profile" component={ProfileEditScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
