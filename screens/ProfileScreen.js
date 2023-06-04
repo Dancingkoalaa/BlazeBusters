@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, View, Text, TouchableOpacity, Image, Alert } from 'react-native';
+import { StyleSheet, View, Text, TouchableOpacity, Image, ScrollView } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useIsFocused } from '@react-navigation/native';
 
 const ProfileScreen = ({ navigation }) => {
   const [fullName, setFullName] = useState('');
@@ -14,11 +13,12 @@ const ProfileScreen = ({ navigation }) => {
   const [spokenLanguages, setSpokenLanguages] = useState('');
   const [nonResuscitation, setNonResuscitation] = useState(false);
   const [bio, setBio] = useState('');
-  const isFocused = useIsFocused();
+  const [bhv, setBHV] = useState(false);
+  const [ehbo, setEHBO] = useState(false);
 
   useEffect(() => {
-    loadProfile(); // Load the profile data on component mount and when screen is focused
-  }, [isFocused]);
+    loadProfile(); // Load the profile data on component mount
+  }, []);
 
   const loadProfile = async () => {
     try {
@@ -35,6 +35,8 @@ const ProfileScreen = ({ navigation }) => {
         setSpokenLanguages(parsedProfileData.spokenLanguages);
         setNonResuscitation(parsedProfileData.nonResuscitation);
         setBio(parsedProfileData.bio);
+        setBHV(parsedProfileData.bhv);
+        setEHBO(parsedProfileData.ehbo);
       }
     } catch (error) {
       console.log('Error loading profile:', error);
@@ -49,52 +51,119 @@ const ProfileScreen = ({ navigation }) => {
     navigation.navigate('Edit profile');
   };
 
-  return (
-    <View style={styles.container}>
-      <Text>Full Name: {fullName}</Text>
-      <Text>Skills: {skills}</Text>
-      <Text>Disability: {disability}</Text>
-      {profilePhoto && <Image source={{ uri: profilePhoto }} style={styles.photo} />}
-      <Text>Age: {age}</Text>
-      <Text>Pets: {pets}</Text>
-      <Text>Household Members: {householdMembers}</Text>
-      <Text>Spoken Languages: {spokenLanguages}</Text>
-      <Text>Non-Resuscitation: {renderNonResuscitation()}</Text>
-      {bio ? <Text>Bio: {bio}</Text> : null}
+  const renderBHVAndEHBO = () => {
+    if (bhv && ehbo) {
+      return 'BHV, EHBO';
+    } else if (bhv) {
+      return 'BHV';
+    } else if (ehbo) {
+      return 'EHBO';
+    } else {
+      return 'None';
+    }
+  };
 
-      <TouchableOpacity style={styles.button} onPress={handleEditProfile}>
-        <Text style={styles.buttonText}>Edit Profile</Text>
-      </TouchableOpacity>
-    </View>
+  return (
+    <ScrollView contentContainerStyle={styles.container}>
+      <View style={styles.profileContainer}>
+        {profilePhoto && <Image source={{ uri: profilePhoto }} style={styles.profilePhoto} />}
+        <Text style={styles.fullName}>{fullName}</Text>
+        <TouchableOpacity style={styles.editButton} onPress={handleEditProfile}>
+          <Text style={styles.editButtonText}>Edit Profile</Text>
+        </TouchableOpacity>
+      </View>
+      
+      <View style={styles.section}>
+        <Text style={styles.sectionTitle}>BHV/EHBO experience?</Text>
+        <Text>{renderBHVAndEHBO()}</Text>
+      </View>
+
+      <View style={styles.section}>
+        <Text style={styles.sectionTitle}>Needed for resuscitation?</Text>
+        <Text>{renderNonResuscitation()}</Text>
+      </View>
+
+      <View style={styles.section}>
+        <Text style={styles.sectionTitle}>Disabilities</Text>
+        <Text>{disability}</Text>
+      </View>
+
+      <View style={styles.section}>
+        <Text style={styles.sectionTitle}>Skills</Text>
+        <Text>{skills}</Text>
+      </View>
+
+      <View style={styles.section}>
+        <Text style={styles.sectionTitle}>Age</Text>
+        <Text>{age}</Text>
+      </View>
+
+      <View style={styles.section}>
+        <Text style={styles.sectionTitle}>Amount of ets</Text>
+        <Text>{pets}</Text>
+      </View>
+
+      <View style={styles.section}>
+        <Text style={styles.sectionTitle}>Amount of household members</Text>
+        <Text>{householdMembers}</Text>
+      </View>
+
+      <View style={styles.section}>
+        <Text style={styles.sectionTitle}>Spoken Languages</Text>
+        <Text>{spokenLanguages}</Text>
+      </View>
+
+      {bio ? (
+        <View style={styles.section}>
+          <Text style={styles.sectionTitle}>Bio</Text>
+          <Text>{bio}</Text>
+        </View>
+      ) : null}
+    </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    padding: 16,
+    flexGrow: 1,
+    paddingVertical: 16,
+    paddingHorizontal: 20,
   },
-  button: {
-    marginTop: 16,
-    backgroundColor: 'blue',
-    paddingVertical: 12,
-    paddingHorizontal: 16,
-    borderRadius: 4,
+  profileContainer: {
     alignItems: 'center',
+    marginBottom: 20,
   },
-  buttonText: {
+  profilePhoto: {
+    width: 150,
+    height: 150,
+    borderRadius: 75,
+    marginBottom: 12,
+  },
+  fullName: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 12,
+  },
+  editButton: {
+    backgroundColor: 'blue',
+    paddingVertical: 8,
+    paddingHorizontal: 12,
+    borderRadius: 4,
+  },
+  editButtonText: {
     color: 'white',
     fontSize: 16,
     fontWeight: 'bold',
   },
-  photo: {
-    width: 150,
-    height: 150,
-    borderRadius: 75,
-    marginVertical: 12,
+  section: {
+    marginBottom: 20,
+  },
+  sectionTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginBottom: 8,
   },
 });
 
 export default ProfileScreen;
-
 

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, ScrollView, View, Text, TextInput, Button, Image, TouchableOpacity, Switch, KeyboardAvoidingView, Alert } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as ImagePicker from 'expo-image-picker';
@@ -16,6 +16,33 @@ const ProfileEditScreen = ({ navigation }) => {
   const [bhv, setBHV] = useState(false);
   const [ehbo, setEHBO] = useState(false);
   const [bio, setBio] = useState('');
+
+  useEffect(() => {
+    loadProfileData(); // Load the profile data on component mount
+  }, []);
+
+  const loadProfileData = async () => {
+    try {
+      const profileData = await AsyncStorage.getItem('profileData');
+      if (profileData) {
+        const parsedProfileData = JSON.parse(profileData);
+        setFullName(parsedProfileData.fullName);
+        setSkills(parsedProfileData.skills);
+        setDisability(parsedProfileData.disability);
+        setProfilePhoto(parsedProfileData.profilePhoto);
+        setAge(parsedProfileData.age);
+        setPets(parsedProfileData.pets);
+        setHouseholdMembers(parsedProfileData.householdMembers);
+        setSpokenLanguages(parsedProfileData.spokenLanguages);
+        setNonResuscitation(parsedProfileData.nonResuscitation);
+        setBHV(parsedProfileData.bhv);
+        setEHBO(parsedProfileData.ehbo);
+        setBio(parsedProfileData.bio);
+      }
+    } catch (error) {
+      console.log('Error loading profile data:', error);
+    }
+  };
 
   const saveProfile = async () => {
     const profileData = {
@@ -74,6 +101,7 @@ const ProfileEditScreen = ({ navigation }) => {
           style={styles.input}
           value={fullName}
           onChangeText={setFullName}
+          placeholder="Enter your full name"
         />
 
         <Text>Skills:</Text>
@@ -81,6 +109,7 @@ const ProfileEditScreen = ({ navigation }) => {
           style={styles.input}
           value={skills}
           onChangeText={setSkills}
+          placeholder="Enter your skills"
         />
 
         <Text>Disability:</Text>
@@ -88,6 +117,7 @@ const ProfileEditScreen = ({ navigation }) => {
           style={styles.input}
           value={disability}
           onChangeText={setDisability}
+          placeholder="Enter your disability"
         />
 
         <Text>Profile Photo/Avatar:</Text>
@@ -105,6 +135,7 @@ const ProfileEditScreen = ({ navigation }) => {
           value={age}
           onChangeText={setAge}
           keyboardType="numeric"
+          placeholder="Enter your age"
         />
 
         <Text>Pets:</Text>
@@ -112,6 +143,7 @@ const ProfileEditScreen = ({ navigation }) => {
           style={styles.input}
           value={pets}
           onChangeText={setPets}
+          placeholder="Enter your pets"
         />
 
         <Text>Number of People in Household:</Text>
@@ -120,6 +152,7 @@ const ProfileEditScreen = ({ navigation }) => {
           value={householdMembers}
           onChangeText={setHouseholdMembers}
           keyboardType="numeric"
+          placeholder="Enter the number of household members"
         />
 
         <Text>Spoken Languages:</Text>
@@ -127,6 +160,7 @@ const ProfileEditScreen = ({ navigation }) => {
           style={styles.input}
           value={spokenLanguages}
           onChangeText={setSpokenLanguages}
+          placeholder="Enter your spoken languages"
         />
 
         <Text>Non-Resuscitation Declaration:</Text>
@@ -156,12 +190,13 @@ const ProfileEditScreen = ({ navigation }) => {
           </TouchableOpacity>
         </View>
 
-        <Text>Biography:</Text>
+        <Text>Biography(optional):</Text>
         <TextInput
           style={styles.input}
           value={bio}
           onChangeText={setBio}
           multiline
+          placeholder="Enter your biography"
         />
 
         <Button title="Save Profile" onPress={saveProfile} />
@@ -171,64 +206,87 @@ const ProfileEditScreen = ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  scrollContainer: {
-    padding: 16,
-  },
-  input: {
-    height: 40,
-    borderColor: 'gray',
-    borderWidth: 1,
-    marginBottom: 12,
-    paddingHorizontal: 8,
-  },
-  photoContainer: {
-    borderWidth: 1,
-    borderColor: 'gray',
-    borderRadius: 4,
-    alignItems: 'center',
-    justifyContent: 'center',
-    height: 150,
-    marginBottom: 12,
-  },
-  photo: {
-    width: '100%',
-    height: '100%',
-    resizeMode: 'cover',
-    borderRadius: 4,
-  },
-  choosePhotoText: {
-    fontSize: 16,
-    color: 'gray',
-  },
-  switchContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 12,
-  },
-  buttonsContainer: {
-    flexDirection: 'row',
-    marginBottom: 12,
-  },
-  button: {
-    flex: 1,
-    backgroundColor: '#e4e4e4',
-    borderRadius: 4,
-    paddingVertical: 8,
-    paddingHorizontal: 16,
-    marginRight: 8,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  buttonSelected: {
-    backgroundColor: '#81b0ff',
-  },
-  buttonText: {
-    color: 'black',
-  },
-});
-
-export default ProfileEditScreen;
+    container: {
+      flex: 1,
+    },
+    scrollContainer: {
+      padding: 16,
+    },
+    label: {
+      fontSize: 16,
+      fontWeight: 'bold',
+      marginBottom: 4,
+      color: '#333',
+    },
+    input: {
+      height: 40,
+      borderColor: '#ddd',
+      borderWidth: 1,
+      marginBottom: 12,
+      paddingHorizontal: 8,
+      backgroundColor: '#fff',
+      color: '#333',
+    },
+    photoContainer: {
+      borderWidth: 1,
+      borderColor: '#ddd',
+      borderRadius: 4,
+      alignItems: 'center',
+      justifyContent: 'center',
+      height: 150,
+      marginBottom: 12,
+      backgroundColor: '#f9f9f9',
+    },
+    photo: {
+      width: '100%',
+      height: '100%',
+      resizeMode: 'cover',
+      borderRadius: 4,
+    },
+    choosePhotoText: {
+      fontSize: 16,
+      color: '#666',
+    },
+    switchContainer: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      marginBottom: 12,
+    },
+    buttonsContainer: {
+      flexDirection: 'row',
+      marginBottom: 12,
+    },
+    button: {
+      flex: 1,
+      backgroundColor: '#e4e4e4',
+      borderRadius: 4,
+      paddingVertical: 8,
+      paddingHorizontal: 16,
+      marginRight: 8,
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    buttonSelected: {
+      backgroundColor: '#81b0ff',
+    },
+    buttonText: {
+      color: 'black',
+    },
+    buttonTextSelected: {
+      color: 'white',
+    },
+    bioInput: {
+      height: 120,
+      borderColor: '#ddd',
+      borderWidth: 1,
+      marginBottom: 12,
+      paddingHorizontal: 8,
+      paddingTop: 8,
+      backgroundColor: '#fff',
+      color: '#333',
+    },
+  });
+  
+  export default ProfileEditScreen;
+  
 
