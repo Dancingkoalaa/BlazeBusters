@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, ScrollView, View, Text, TextInput, Button, Image, TouchableOpacity, KeyboardAvoidingView } from 'react-native';
+import { StyleSheet, ScrollView, View, Text, TextInput, Button, Image, TouchableOpacity, Switch, KeyboardAvoidingView, Alert } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as ImagePicker from 'expo-image-picker';
 
@@ -13,6 +13,8 @@ const ProfileEditScreen = ({ navigation }) => {
   const [householdMembers, setHouseholdMembers] = useState('');
   const [spokenLanguages, setSpokenLanguages] = useState('');
   const [nonResuscitation, setNonResuscitation] = useState(false);
+  const [bhv, setBHV] = useState(false);
+  const [ehbo, setEHBO] = useState(false);
   const [bio, setBio] = useState('');
 
   const saveProfile = async () => {
@@ -26,17 +28,28 @@ const ProfileEditScreen = ({ navigation }) => {
       householdMembers,
       spokenLanguages,
       nonResuscitation,
+      bhv,
+      ehbo,
       bio
     };
 
     try {
-      await AsyncStorage.setItem('profileData', JSON.stringify(profileData));
-      console.log('Profile saved:', profileData);
-      navigation.goBack(); // Go back to the ProfileScreen after saving
-    } catch (error) {
-      console.log('Error saving profile:', error);
-    }
-  };
+        await AsyncStorage.setItem('profileData', JSON.stringify(profileData));
+        console.log('Profile saved:', profileData);
+  
+        // Display a popup message indicating successful profile update
+        Alert.alert('Success', 'Your profile is updated', [
+          {
+            text: 'OK',
+            onPress: () => {
+              navigation.goBack(); // Go back to the ProfileScreen after saving
+            },
+          },
+        ]);
+      } catch (error) {
+        console.log('Error saving profile:', error);
+      }
+    };
 
   const handleChoosePhoto = async () => {
     const permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
@@ -117,11 +130,31 @@ const ProfileEditScreen = ({ navigation }) => {
         />
 
         <Text>Non-Resuscitation Declaration:</Text>
-        <TextInput
-          style={styles.input}
-          value={nonResuscitation.toString()}
-          onChangeText={text => setNonResuscitation(text === 'true')}
-        />
+        <View style={styles.switchContainer}>
+          <Switch
+            value={nonResuscitation}
+            onValueChange={setNonResuscitation}
+            trackColor={{ false: '#767577', true: '#81b0ff' }}
+            thumbColor={nonResuscitation ? '#f5dd4b' : '#f4f3f4'}
+          />
+          <Text>{nonResuscitation ? 'Yes' : 'No'}</Text>
+        </View>
+
+        <Text>BHV or/and EHBO:</Text>
+        <View style={styles.buttonsContainer}>
+          <TouchableOpacity
+            style={[styles.button, bhv ? styles.buttonSelected : null]}
+            onPress={() => setBHV(!bhv)}
+          >
+            <Text style={styles.buttonText}>BHV</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={[styles.button, ehbo ? styles.buttonSelected : null]}
+            onPress={() => setEHBO(!ehbo)}
+          >
+            <Text style={styles.buttonText}>EHBO</Text>
+          </TouchableOpacity>
+        </View>
 
         <Text>Biography:</Text>
         <TextInput
@@ -170,8 +203,32 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: 'gray',
   },
+  switchContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 12,
+  },
+  buttonsContainer: {
+    flexDirection: 'row',
+    marginBottom: 12,
+  },
+  button: {
+    flex: 1,
+    backgroundColor: '#e4e4e4',
+    borderRadius: 4,
+    paddingVertical: 8,
+    paddingHorizontal: 16,
+    marginRight: 8,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  buttonSelected: {
+    backgroundColor: '#81b0ff',
+  },
+  buttonText: {
+    color: 'black',
+  },
 });
 
 export default ProfileEditScreen;
-
 

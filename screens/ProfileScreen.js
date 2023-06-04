@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, View, Text, TouchableOpacity, Image } from 'react-native';
+import { StyleSheet, View, Text, TouchableOpacity, Image, Alert } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useIsFocused } from '@react-navigation/native';
 
 const ProfileScreen = ({ navigation }) => {
   const [fullName, setFullName] = useState('');
@@ -13,10 +14,11 @@ const ProfileScreen = ({ navigation }) => {
   const [spokenLanguages, setSpokenLanguages] = useState('');
   const [nonResuscitation, setNonResuscitation] = useState(false);
   const [bio, setBio] = useState('');
+  const isFocused = useIsFocused();
 
   useEffect(() => {
-    loadProfile(); // Load the profile data on component mount
-  }, []);
+    loadProfile(); // Load the profile data on component mount and when screen is focused
+  }, [isFocused]);
 
   const loadProfile = async () => {
     try {
@@ -58,7 +60,7 @@ const ProfileScreen = ({ navigation }) => {
       <Text>Household Members: {householdMembers}</Text>
       <Text>Spoken Languages: {spokenLanguages}</Text>
       <Text>Non-Resuscitation: {renderNonResuscitation()}</Text>
-      <Text>Bio: {bio}</Text>
+      {bio ? <Text>Bio: {bio}</Text> : null}
 
       <TouchableOpacity style={styles.button} onPress={handleEditProfile}>
         <Text style={styles.buttonText}>Edit Profile</Text>
@@ -94,4 +96,5 @@ const styles = StyleSheet.create({
 });
 
 export default ProfileScreen;
+
 
