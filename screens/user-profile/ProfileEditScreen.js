@@ -1,17 +1,18 @@
 import React, { useState } from 'react';
-import { StyleSheet, ScrollView, View, Text, TextInput, Button } from 'react-native';
+import { StyleSheet, ScrollView, View, Text, TextInput, Button, Image, TouchableOpacity, KeyboardAvoidingView } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import * as ImagePicker from 'expo-image-picker';
 
-const ProfileEditScreen = () => {
+const ProfileEditScreen = ({ navigation }) => {
   const [fullName, setFullName] = useState('');
   const [skills, setSkills] = useState('');
   const [disability, setDisability] = useState('');
-  const [profilePhoto, setProfilePhoto] = useState('');
+  const [profilePhoto, setProfilePhoto] = useState(null); // Store the image URI
   const [age, setAge] = useState('');
   const [pets, setPets] = useState('');
   const [householdMembers, setHouseholdMembers] = useState('');
   const [spokenLanguages, setSpokenLanguages] = useState('');
-  const [nonResuscitation, setNonResuscitation] = useState('');
+  const [nonResuscitation, setNonResuscitation] = useState(false);
   const [bio, setBio] = useState('');
 
   const saveProfile = async () => {
@@ -31,109 +32,146 @@ const ProfileEditScreen = () => {
     try {
       await AsyncStorage.setItem('profileData', JSON.stringify(profileData));
       console.log('Profile saved:', profileData);
+      navigation.goBack(); // Go back to the ProfileScreen after saving
     } catch (error) {
       console.log('Error saving profile:', error);
     }
   };
 
+  const handleChoosePhoto = async () => {
+    const permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
+
+    if (permissionResult.granted === false) {
+      console.log('Permission to access camera roll is required!');
+      return;
+    }
+
+    const pickerResult = await ImagePicker.launchImageLibraryAsync();
+
+    if (!pickerResult.cancelled) {
+      setProfilePhoto(pickerResult.uri);
+    }
+  };
+
   return (
-    <ScrollView contentContainerStyle={styles.container}>
-      <Text>Full Name:</Text>
-      <TextInput
-        style={styles.input}
-        value={fullName}
-        onChangeText={setFullName}
-      />
+    <KeyboardAvoidingView style={styles.container} behavior="padding">
+      <ScrollView contentContainerStyle={styles.scrollContainer}>
+        <Text>Full Name:</Text>
+        <TextInput
+          style={styles.input}
+          value={fullName}
+          onChangeText={setFullName}
+        />
 
-      <Text>Skills:</Text>
-      <TextInput
-        style={styles.input}
-        value={skills}
-        onChangeText={setSkills}
-      />
+        <Text>Skills:</Text>
+        <TextInput
+          style={styles.input}
+          value={skills}
+          onChangeText={setSkills}
+        />
 
-      <Text>Disability:</Text>
-      <TextInput
-        style={styles.input}
-        value={disability}
-        onChangeText={setDisability}
-      />
+        <Text>Disability:</Text>
+        <TextInput
+          style={styles.input}
+          value={disability}
+          onChangeText={setDisability}
+        />
 
-      <Text>Profile Photo/Avatar:</Text>
-      <TextInput
-        style={styles.input}
-        value={profilePhoto}
-        onChangeText={setProfilePhoto}
-      />
+        <Text>Profile Photo/Avatar:</Text>
+        <TouchableOpacity style={styles.photoContainer} onPress={handleChoosePhoto}>
+          {profilePhoto ? (
+            <Image source={{ uri: profilePhoto }} style={styles.photo} />
+          ) : (
+            <Text style={styles.choosePhotoText}>Choose Photo</Text>
+          )}
+        </TouchableOpacity>
 
-      <Text>Age:</Text>
-      <TextInput
-        style={styles.input}
-        value={age}
-        onChangeText={setAge}
-        keyboardType="numeric"
-      />
+        <Text>Age:</Text>
+        <TextInput
+          style={styles.input}
+          value={age}
+          onChangeText={setAge}
+          keyboardType="numeric"
+        />
 
-      <Text>Pets:</Text>
-      <TextInput
-        style={styles.input}
-        value={pets}
-        onChangeText={setPets}
-      />
+        <Text>Pets:</Text>
+        <TextInput
+          style={styles.input}
+          value={pets}
+          onChangeText={setPets}
+        />
 
-      <Text>Number of People in Household:</Text>
-      <TextInput
-        style={styles.input}
-        value={householdMembers}
-        onChangeText={setHouseholdMembers}
-        keyboardType="numeric"
-      />
+        <Text>Number of People in Household:</Text>
+        <TextInput
+          style={styles.input}
+          value={householdMembers}
+          onChangeText={setHouseholdMembers}
+          keyboardType="numeric"
+        />
 
-      <Text>Spoken Languages:</Text>
-      <TextInput
-        style={styles.input}
-        value={spokenLanguages}
-        onChangeText={setSpokenLanguages}
-      />
+        <Text>Spoken Languages:</Text>
+        <TextInput
+          style={styles.input}
+          value={spokenLanguages}
+          onChangeText={setSpokenLanguages}
+        />
 
-      <Text>Non-Resuscitation Declaration:</Text>
-      <TextInput
-        style={styles.input}
-        value={nonResuscitation}
-        onChangeText={setNonResuscitation}
-      />
+        <Text>Non-Resuscitation Declaration:</Text>
+        <TextInput
+          style={styles.input}
+          value={nonResuscitation.toString()}
+          onChangeText={text => setNonResuscitation(text === 'true')}
+        />
 
-      <Text>Biography:</Text>
-      <TextInput
-        style={styles.input}
-        value={bio}
-        onChangeText={setBio}
-        multiline
-      />
-      
-      <Button title="Save Profile" onPress={saveProfile} />
+        <Text>Biography:</Text>
+        <TextInput
+          style={styles.input}
+          value={bio}
+          onChangeText={setBio}
+          multiline
+        />
 
-    </ScrollView>
+        <Button title="Save Profile" onPress={saveProfile} />
+      </ScrollView>
+    </KeyboardAvoidingView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flexGrow: 1,
+    flex: 1,
+  },
+  scrollContainer: {
     padding: 16,
-    paddingBottom: 100, // Add bottom margin for the button to be consistently visible
   },
   input: {
+    height: 40,
+    borderColor: 'gray',
     borderWidth: 1,
-    borderColor: '#ccc',
-    borderRadius: 4,
-    marginBottom: 10,
-    padding: 8,
+    marginBottom: 12,
+    paddingHorizontal: 8,
   },
-  buttonContainer: {
-    marginBottom: 16, // Add margin to create separation from the scrollable content
+  photoContainer: {
+    borderWidth: 1,
+    borderColor: 'gray',
+    borderRadius: 4,
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: 150,
+    marginBottom: 12,
+  },
+  photo: {
+    width: '100%',
+    height: '100%',
+    resizeMode: 'cover',
+    borderRadius: 4,
+  },
+  choosePhotoText: {
+    fontSize: 16,
+    color: 'gray',
   },
 });
 
 export default ProfileEditScreen;
+
 

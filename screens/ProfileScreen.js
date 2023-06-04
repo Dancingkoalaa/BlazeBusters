@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, Text, TouchableOpacity, Image } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const ProfileScreen = ({ navigation }) => {
   const [fullName, setFullName] = useState('');
   const [skills, setSkills] = useState('');
   const [disability, setDisability] = useState('');
-  const [profilePhoto, setProfilePhoto] = useState('');
+  const [profilePhoto, setProfilePhoto] = useState(null);
   const [age, setAge] = useState('');
   const [pets, setPets] = useState('');
   const [householdMembers, setHouseholdMembers] = useState('');
   const [spokenLanguages, setSpokenLanguages] = useState('');
-  const [nonResuscitation, setNonResuscitation] = useState('');
+  const [nonResuscitation, setNonResuscitation] = useState(false);
   const [bio, setBio] = useState('');
 
   useEffect(() => {
@@ -39,7 +39,11 @@ const ProfileScreen = ({ navigation }) => {
     }
   };
 
-  const navigateToEditProfile = () => {
+  const renderNonResuscitation = () => {
+    return nonResuscitation ? 'Yes' : 'No';
+  };
+
+  const handleEditProfile = () => {
     navigation.navigate('Edit profile');
   };
 
@@ -48,17 +52,16 @@ const ProfileScreen = ({ navigation }) => {
       <Text>Full Name: {fullName}</Text>
       <Text>Skills: {skills}</Text>
       <Text>Disability: {disability}</Text>
-      <Text>Profile: {profilePhoto}</Text>
+      {profilePhoto && <Image source={{ uri: profilePhoto }} style={styles.photo} />}
       <Text>Age: {age}</Text>
-      <Text>Amount of pets: {pets}</Text>
-      <Text>Amount of household members: {householdMembers}</Text>
-      <Text>Age: {age}</Text>
-      <Text>Resuscitation?: {nonResuscitation}</Text>
-      <Text>Spoken languages: {spokenLanguages}</Text>
-      <Text>About me: {bio}</Text>
+      <Text>Pets: {pets}</Text>
+      <Text>Household Members: {householdMembers}</Text>
+      <Text>Spoken Languages: {spokenLanguages}</Text>
+      <Text>Non-Resuscitation: {renderNonResuscitation()}</Text>
+      <Text>Bio: {bio}</Text>
 
-      <TouchableOpacity style={styles.editButton} onPress={navigateToEditProfile}>
-        <Text style={styles.editButtonText}>Edit Profile</Text>
+      <TouchableOpacity style={styles.button} onPress={handleEditProfile}>
+        <Text style={styles.buttonText}>Edit Profile</Text>
       </TouchableOpacity>
     </View>
   );
@@ -69,17 +72,24 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 16,
   },
-  editButton: {
+  button: {
     marginTop: 16,
-    backgroundColor: '#ccc',
-    paddingVertical: 10,
-    paddingHorizontal: 20,
+    backgroundColor: 'blue',
+    paddingVertical: 12,
+    paddingHorizontal: 16,
     borderRadius: 4,
-    alignSelf: 'flex-start',
+    alignItems: 'center',
   },
-  editButtonText: {
+  buttonText: {
     color: 'white',
+    fontSize: 16,
     fontWeight: 'bold',
+  },
+  photo: {
+    width: 150,
+    height: 150,
+    borderRadius: 75,
+    marginVertical: 12,
   },
 });
 
