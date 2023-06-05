@@ -39,8 +39,9 @@ export default function NeighbourMap() {
         longitudeDelta: 0.0200
       }}
       initialRegion={initialRegion}>
-        <Marker coordinate={{ latitude: location.latitude, longitude: location.longitude }} title='You' />
-        <Marker coordinate={{latitude: 51.918092, longitude: 4.480246,}} title="BHV'er" pinColor={'green'}/>
+        <Marker coordinate={{ latitude: location.latitude, longitude: location.longitude }} title='You' image={require('../assets/marker.png')} />
+        <Marker coordinate={{latitude: 51.918092, longitude: 4.480246,}} title="BHV'er" pinColor={'navy'}/>
+        <Marker coordinate={{latitude: 51.919092, longitude: 4.481246,}} title="BHV'er" image={require('../assets/markerbhv.png')}/>
       </MapView>
     </View>
   );
