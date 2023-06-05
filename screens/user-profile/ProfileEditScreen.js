@@ -61,22 +61,22 @@ const ProfileEditScreen = ({ navigation }) => {
     };
 
     try {
-        await AsyncStorage.setItem('profileData', JSON.stringify(profileData));
-        console.log('Profile saved:', profileData);
-  
-        // Display a popup message indicating successful profile update
-        Alert.alert('Success', 'Your profile is updated', [
-          {
-            text: 'OK',
-            onPress: () => {
-              navigation.goBack(); // Go back to the ProfileScreen after saving
-            },
+      await AsyncStorage.setItem('profileData', JSON.stringify(profileData));
+      console.log('Profile saved:', profileData);
+
+      // Display a popup message indicating successful profile update
+      Alert.alert('Success', 'Your profile is updated', [
+        {
+          text: 'OK',
+          onPress: () => {
+            navigation.goBack({ profileData }); // Pass the updated profile data as a parameter
           },
-        ]);
-      } catch (error) {
-        console.log('Error saving profile:', error);
-      }
-    };
+        },
+      ]);
+    } catch (error) {
+      console.log('Error saving profile:', error);
+    }
+  };
 
   const handleChoosePhoto = async () => {
     const permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
@@ -206,87 +206,68 @@ const ProfileEditScreen = ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-    },
-    scrollContainer: {
-      padding: 16,
-    },
-    label: {
-      fontSize: 16,
-      fontWeight: 'bold',
-      marginBottom: 4,
-      color: '#333',
-    },
-    input: {
-      height: 40,
-      borderColor: '#ddd',
-      borderWidth: 1,
-      marginBottom: 12,
-      paddingHorizontal: 8,
-      backgroundColor: '#fff',
-      color: '#333',
-    },
-    photoContainer: {
-      borderWidth: 1,
-      borderColor: '#ddd',
-      borderRadius: 4,
-      alignItems: 'center',
-      justifyContent: 'center',
-      height: 150,
-      marginBottom: 12,
-      backgroundColor: '#f9f9f9',
-    },
-    photo: {
-      width: '100%',
-      height: '100%',
-      resizeMode: 'cover',
-      borderRadius: 4,
-    },
-    choosePhotoText: {
-      fontSize: 16,
-      color: '#666',
-    },
-    switchContainer: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      marginBottom: 12,
-    },
-    buttonsContainer: {
-      flexDirection: 'row',
-      marginBottom: 12,
-    },
-    button: {
-      flex: 1,
-      backgroundColor: '#e4e4e4',
-      borderRadius: 4,
-      paddingVertical: 8,
-      paddingHorizontal: 16,
-      marginRight: 8,
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-    buttonSelected: {
-      backgroundColor: '#81b0ff',
-    },
-    buttonText: {
-      color: 'black',
-    },
-    buttonTextSelected: {
-      color: 'white',
-    },
-    bioInput: {
-      height: 120,
-      borderColor: '#ddd',
-      borderWidth: 1,
-      marginBottom: 12,
-      paddingHorizontal: 8,
-      paddingTop: 8,
-      backgroundColor: '#fff',
-      color: '#333',
-    },
-  });
-  
-  export default ProfileEditScreen;
-  
+  container: {
+    flex: 1,
+  },
+  scrollContainer: {
+    padding: 16,
+  },
+  label: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    marginBottom: 4,
+    color: '#333',
+  },
+  input: {
+    height: 40,
+    borderColor: '#ddd',
+    borderWidth: 1,
+    marginBottom: 12,
+    paddingHorizontal: 8,
+    backgroundColor: '#fff',
+  },
+  photoContainer: {
+    width: 100,
+    height: 100,
+    backgroundColor: '#ddd',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 12,
+  },
+  photo: {
+    width: 100,
+    height: 100,
+  },
+  choosePhotoText: {
+    fontSize: 16,
+    color: '#333',
+  },
+  switchContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 12,
+  },
+  buttonsContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: 12,
+  },
+  button: {
+    flex: 1,
+    height: 40,
+    borderRadius: 4,
+    backgroundColor: '#ddd',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginRight: 8,
+  },
+  buttonSelected: {
+    backgroundColor: '#81b0ff',
+  },
+  buttonText: {
+    fontSize: 16,
+    color: '#333',
+  },
+});
 
+export default ProfileEditScreen;

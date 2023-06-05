@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, Text, TouchableOpacity, Image, ScrollView } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useFocusEffect } from '@react-navigation/native';
 
 const ProfileScreen = ({ navigation }) => {
   const [fullName, setFullName] = useState('');
@@ -15,10 +16,6 @@ const ProfileScreen = ({ navigation }) => {
   const [bio, setBio] = useState('');
   const [bhv, setBHV] = useState(false);
   const [ehbo, setEHBO] = useState(false);
-
-  useEffect(() => {
-    loadProfile(); // Load the profile data on component mount
-  }, []);
 
   const loadProfile = async () => {
     try {
@@ -42,6 +39,12 @@ const ProfileScreen = ({ navigation }) => {
       console.log('Error loading profile:', error);
     }
   };
+
+  useFocusEffect(
+    React.useCallback(() => {
+      loadProfile();
+    }, [])
+  );
 
   const renderNonResuscitation = () => {
     return nonResuscitation ? 'Yes' : 'No';
@@ -99,7 +102,7 @@ const ProfileScreen = ({ navigation }) => {
       </View>
 
       <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Amount of ets</Text>
+        <Text style={styles.sectionTitle}>Amount of pets</Text>
         <Text>{pets}</Text>
       </View>
 
@@ -166,4 +169,5 @@ const styles = StyleSheet.create({
 });
 
 export default ProfileScreen;
+
 
