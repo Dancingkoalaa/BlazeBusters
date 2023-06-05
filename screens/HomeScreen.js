@@ -42,17 +42,17 @@ export default function HomeScreen() {
 
       </ScrollView>
       <View style={styles.buttonContainer}>
-        <TouchableOpacity style={styles.button} onPress={goToProfile}>
-          <Icon name="person" size={20} color="white" />
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.button} onPress={goToNeighbourCircle}>
-          <Icon name="people" size={20} color="white" />
+        <TouchableOpacity style={styles.button} onPress={goToQuickMessage}>
+          <Icon name="chatbubble-ellipses" size={20} color="white" />
         </TouchableOpacity>
         <TouchableOpacity style={styles.button} onPress={goToNeighbourMap}>
           <Icon name="map" size={20} color="white" />
         </TouchableOpacity>
-        <TouchableOpacity style={styles.button} onPress={goToQuickMessage}>
-          <Icon name="chatbubble-ellipses" size={20} color="white" />
+        <TouchableOpacity style={styles.button} onPress={goToNeighbourCircle}>
+          <Icon name="people" size={20} color="white" />
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.button} onPress={goToProfile}>
+          <Icon name="person" size={20} color="white" />
         </TouchableOpacity>
       </View>
     </View>
