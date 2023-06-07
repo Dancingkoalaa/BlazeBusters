@@ -24,6 +24,10 @@ export default function HomeScreen() {
     navigation.navigate('Snel Berichten');
   };
 
+  const goToImagePicker = () => {
+    navigation.navigate('Imagepicker');
+  };
+
   return (
     <View style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollViewContent}>
@@ -52,6 +56,9 @@ export default function HomeScreen() {
           <Icon name="people" size={20} color="white" />
         </TouchableOpacity>
         <TouchableOpacity style={styles.button} onPress={goToProfile}>
+          <Icon name="person" size={20} color="white" />
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.button} onPress={goToImagePicker}>
           <Icon name="person" size={20} color="white" />
         </TouchableOpacity>
       </View>
