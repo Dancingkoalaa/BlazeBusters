@@ -10,6 +10,7 @@ import QuickMessageScreen from './screens/QuickMessageScreen';
 import ProfileEditScreen from './screens/user-profile/ProfileEditScreen';
 import NeighbourProfileScreen from './screens/user-profile/NeighbourProfileScreen';
 import ImageSelector from './screens/Imagepicker';
+import NotificationScreen from './screens/NotificationScreen';
 
 const Stack = createStackNavigator();
 
@@ -25,6 +26,7 @@ const App = () => {
         <Stack.Screen name="Edit profile" component={ProfileEditScreen} />
         <Stack.Screen name="Neighbour profile" component={NeighbourProfileScreen} />
         <Stack.Screen name="Imagepicker" component={ImageSelector} />
+        <Stack.Screen name="Notifications" component={NotificationScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -3,9 +3,9 @@ import { StyleSheet, Text, View, TouchableOpacity, ScrollView } from 'react-nati
 import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
-import NeighbourMapScreen from './NeighbourMapScreen'; // Import the NeighbourMapScreen component
 
-export default function HomeScreen() {
+
+const HomeScreen = () => {
   const navigation = useNavigation();
 
   const goToProfile = () => {
@@ -16,10 +16,6 @@ export default function HomeScreen() {
     navigation.navigate('Neighbours circle');
   };
 
-  const goToNeighbourMap = () => {
-    navigation.navigate('Buurtkaart');
-  };
-
   const goToQuickMessage = () => {
     navigation.navigate('Snel Berichten');
   };
@@ -28,10 +24,17 @@ export default function HomeScreen() {
     navigation.navigate('Imagepicker');
   };
 
+  const goToNotifications = () => {
+    navigation.navigate('Notifications')
+  }
+
   return (
     <View style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollViewContent}>
         <View style={styles.newsFeedContainer}>
+          <TouchableOpacity style={styles.button} onPress={goToNotifications}>
+            <Icon name="chatbubble-ellipses" size={20} color="white" />
+          </TouchableOpacity>
           <Text style={styles.newsTitle}>Neighbourhood News Update</Text>
           <Text style={styles.newsText}>Breaking News: Increased Security Measures Implemented in the Neighbourhood</Text>
         </View>
@@ -39,26 +42,19 @@ export default function HomeScreen() {
           <Text style={styles.newsTitle}>Incoming messages</Text>
           <Text style={styles.notificationText}> John has sent you a request</Text>
         </View>
-        <View style={styles.mapContainer}>
-          <Text style={styles.newsTitle}>Your location</Text>
-          <NeighbourMapScreen />
-        </View>
 
       </ScrollView>
       <View style={styles.buttonContainer}>
         <TouchableOpacity style={styles.button} onPress={goToQuickMessage}>
           <Icon name="chatbubble-ellipses" size={20} color="white" />
         </TouchableOpacity>
-        <TouchableOpacity style={styles.button} onPress={goToNeighbourMap}>
+        <TouchableOpacity style={styles.button} onPress={goToImagePicker}>
           <Icon name="map" size={20} color="white" />
         </TouchableOpacity>
         <TouchableOpacity style={styles.button} onPress={goToNeighbourCircle}>
           <Icon name="people" size={20} color="white" />
         </TouchableOpacity>
         <TouchableOpacity style={styles.button} onPress={goToProfile}>
-          <Icon name="person" size={20} color="white" />
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.button} onPress={goToImagePicker}>
           <Icon name="person" size={20} color="white" />
         </TouchableOpacity>
       </View>
@@ -121,3 +117,5 @@ const styles = StyleSheet.create({
     borderRadius: 20,
   },
 });
+
+export default HomeScreen;

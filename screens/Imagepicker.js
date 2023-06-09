@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { StyleSheet, View, Image, TouchableOpacity, FlatList, Text } from 'react-native';
 
-const ImageSelector = () => {
+const ImageSelector = ({ navigation }) => {
   const [selectedImage, setSelectedImage] = useState(null);
 
   const imagePaths = [
@@ -16,6 +16,7 @@ const ImageSelector = () => {
 
   const handleImageSelect = (imageName) => {
     setSelectedImage(imageName);
+    navigation.navigate("Buurtkaart", {markerColor: imageName});
   };
 
   const renderItem = ({ item }) => {
