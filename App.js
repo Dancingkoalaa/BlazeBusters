@@ -24,7 +24,7 @@ const App = () => {
         <Stack.Screen name="Snel Berichten" component={QuickMessageScreen} />
         <Stack.Screen name="Edit profile" component={ProfileEditScreen} />
         <Stack.Screen name="Neighbour profile" component={NeighbourProfileScreen} />
-        <Stack.Screen name="Neighbour profile" component={EventScreen} />
+        <Stack.Screen name="Events" component={EventScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

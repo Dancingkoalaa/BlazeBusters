@@ -3,7 +3,9 @@ import { StyleSheet, Text, View, TouchableOpacity, ScrollView } from 'react-nati
 import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
-import NeighbourMapScreen from './NeighbourMapScreen'; // Import the NeighbourMapScreen component
+import EventsScreen from './EventScreen'; // Import the EventsScreen component
+import NeighbourMapScreen from './NeighbourMapScreen'; // Correct import path
+
 
 export default function HomeScreen() {
   const navigation = useNavigation();
@@ -24,6 +26,10 @@ export default function HomeScreen() {
     navigation.navigate('Snel Berichten');
   };
 
+  const goToEvents = () => {
+    navigation.navigate('Events'); // Navigate to the EventsScreen
+  };
+
   return (
     <View style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollViewContent}>
@@ -35,11 +41,13 @@ export default function HomeScreen() {
           <Text style={styles.newsTitle}>Incoming messages</Text>
           <Text style={styles.notificationText}> John has sent you a request</Text>
         </View>
+        <TouchableOpacity style={styles.eventContainer} onPress={goToEvents}>
+          <Text style={styles.eventText}>View Events</Text>
+        </TouchableOpacity>
         <View style={styles.mapContainer}>
           <Text style={styles.newsTitle}>Your location</Text>
           <NeighbourMapScreen />
         </View>
-
       </ScrollView>
       <View style={styles.buttonContainer}>
         <TouchableOpacity style={styles.button} onPress={goToQuickMessage}>
@@ -62,57 +70,54 @@ export default function HomeScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: '#fff',
   },
   scrollViewContent: {
-    flexGrow: 1,
+    paddingVertical: 20,
   },
   newsFeedContainer: {
-    backgroundColor: 'lightgray',
-    padding: 10,
-
-     
-    marginBottom: 10,
+    paddingHorizontal: 20,
+    marginBottom: 20,
   },
   newsTitle: {
     fontSize: 18,
     fontWeight: 'bold',
-    marginBottom: 5,
+    marginBottom: 10,
   },
   newsText: {
     fontSize: 16,
   },
   notificationContainer: {
-    backgroundColor: 'lightblue',
-    padding: 10,
-    marginBottom: 10,
+    paddingHorizontal: 20,
+    marginBottom: 20,
   },
   notificationText: {
     fontSize: 16,
   },
+  eventContainer: {
+    paddingHorizontal: 20,
+    marginBottom: 20,
+    backgroundColor: '#f4511e',
+    paddingVertical: 10,
+    borderRadius: 5,
+    alignItems: 'center',
+  },
+  eventText: {
+    color: 'white',
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
   mapContainer: {
-    flex: 1,
-    backgroundColor: 'mediumturquoise',
+    paddingHorizontal: 20,
+    marginBottom: 20,
   },
   buttonContainer: {
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    right: 0,
-    backgroundColor: 'white',
-    borderTopWidth: 1,
-    borderTopColor: 'gray',
     flexDirection: 'row',
     justifyContent: 'space-around',
     paddingVertical: 10,
+    backgroundColor: '#f4511e',
   },
   button: {
     alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: 'blue',
-    width: 40,
-    height: 40,
-    borderRadius: 20,
   },
 });
