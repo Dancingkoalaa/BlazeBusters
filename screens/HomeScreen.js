@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, ScrollView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -6,6 +6,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import EventsScreen from './EventScreen';
 
 export default function HomeScreen() {
+  const [joinedEvents, setJoinedEvents] = useState([]);
   const navigation = useNavigation();
 
   const goToProfile = () => {
@@ -41,12 +42,15 @@ export default function HomeScreen() {
         </View>
         <View style={styles.eventsContainer}>
           <Text style={styles.newsTitle}>Latest events</Text>
-          <EventsScreen limit={2} />
+          <EventsScreen
+            limit={4}
+            joinedEvents={joinedEvents}
+            setJoinedEvents={setJoinedEvents}
+          />
           <TouchableOpacity style={styles.eventsButton} onPress={goToEvents}>
             <Text style={styles.eventsButtonText}>View all events</Text>
           </TouchableOpacity>
         </View>
-
       </ScrollView>
       <View style={styles.buttonContainer}>
         <TouchableOpacity style={styles.button} onPress={goToQuickMessage}>

@@ -1,45 +1,57 @@
-import React from 'react';
-import { StyleSheet, Text, View, Image, ScrollView } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { StyleSheet, Text, View, Image, ScrollView, TouchableOpacity } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export default function EventsScreen({ limit }) {
-  const events = [
-    {
-      id: 1,
-      title: 'Buurt picnic',
-      host: 'John',
-      description: 'Join us for a fun picnic in the neighborhood park.',
-      participants: ['John', 'Jane', 'Ethan'],
-      time: '12:00 PM - 3:00 PM',
-      location: 'Central Park',
-    },
-    {
-      id: 2,
-      title: 'Neighborhood Birthday Party',
-      host: 'Daniel',
-      description: 'Join us for a neighborhood birthday party to celebrate Daniel\'s special day!',
-      participants: ['Daniel', 'Olivia', 'Sophia', 'Liam', 'Emma'],
-      time: '2:00 PM - 5:00 PM',
-      location: 'Community Park',
-    },
-    {
-      id: 3,
-      title: 'EHBO Course',
-      host: 'Sarah',
-      description: 'Learn essential first aid skills in this EHBO course.',
-      participants: ['Sarah', 'Michael', 'Emily'],
-      time: '10:00 AM - 12:00 PM',
-      location: 'Community Center',
-    },
-    {
-      id: 4,
-      title: 'Neighborhood BBQ Party',
-      host: 'Alex',
-      description: 'Join us for a fun-filled neighborhood BBQ party.',
-      participants: ['Alex', 'Sophia', 'Liam', 'Emma'],
-      time: '4:00 PM - 7:00 PM',
-      location: 'Backyard of 123 Main Street',
-    },
-  ].slice(0, limit);
+export default function EventsScreen() {
+  const [events, setEvents] = useState([]);
+
+  useEffect(() => {
+    loadEvents();
+  }, []);
+
+  const loadEvents = async () => {
+    try {
+      const storedEvents = await AsyncStorage.getItem('events');
+      if (storedEvents !== null) {
+        setEvents(JSON.parse(storedEvents));
+      } else {
+        setEvents(initialEvents);
+        await AsyncStorage.setItem('events', JSON.stringify(initialEvents));
+      }
+    } catch (error) {
+      console.log('Error loading events:', error);
+    }
+  };
+  
+
+  const toggleJoinEvent = async (eventId) => {
+    const updatedEvents = events.map((event) => {
+      if (event.id === eventId) {
+        event.joined = !event.joined;
+      }
+      return event;
+    });
+    setEvents(updatedEvents);
+    try {
+      await AsyncStorage.setItem('events', JSON.stringify(updatedEvents));
+    } catch (error) {
+      console.log('Error saving events:', error);
+    }
+  };
+
+  const renderJoinButton = (eventId, joined) => {
+    const buttonText = joined ? 'Joined' : 'Join';
+    const buttonStyle = joined ? styles.joinedButton : styles.joinButton;
+
+    return (
+      <TouchableOpacity
+        onPress={() => toggleJoinEvent(eventId)}
+        style={buttonStyle}
+      >
+        <Text style={styles.joinButtonText}>{buttonText}</Text>
+      </TouchableOpacity>
+    );
+  };
 
   return (
     <ScrollView style={styles.container}>
@@ -59,11 +71,56 @@ export default function EventsScreen({ limit }) {
               </View>
             ))}
           </View>
+          {renderJoinButton(event.id, event.joined)}
         </View>
       ))}
     </ScrollView>
   );
 }
+
+const initialEvents = [
+  {
+    id: 1,
+    title: 'Buurt picnic',
+    host: 'John',
+    description: 'Join us for a fun picnic in the neighborhood park.',
+    participants: ['John', 'Jane', 'Ethan'],
+    time: '12:00 PM - 3:00 PM',
+    location: 'Central Park',
+    joined: false,
+  },
+  {
+    id: 2,
+    title: 'Neighborhood Birthday Party',
+    host: 'Daniel',
+    description: "Join us for a neighborhood birthday party to celebrate Daniel's special day!",
+    participants: ['Daniel', 'Olivia', 'Sophia', 'Liam', 'Emma'],
+    time: '2:00 PM - 5:00 PM',
+    location: 'Community Park',
+    joined: false,
+  },
+  {
+    id: 3,
+    title: 'EHBO Course',
+    host: 'Sarah',
+    description: 'Learn essential first aid skills in this EHBO course.',
+    participants: ['Sarah', 'Michael', 'Emily'],
+    time: '10:00 AM - 12:00 PM',
+    location: 'Community Center',
+    joined: false,
+  },
+  {
+    id: 4,
+    title: 'Neighborhood BBQ Party',
+    host: 'Alex',
+    description: 'Join us for a fun-filled neighborhood BBQ party.',
+    participants: ['Alex', 'Sophia', 'Liam', 'Emma'],
+    time: '4:00 PM - 7:00 PM',
+    location: 'Backyard of 123 Main Street',
+    joined: false,
+  },
+  // Add more events...
+];
 
 const styles = StyleSheet.create({
   container: {
@@ -119,5 +176,27 @@ const styles = StyleSheet.create({
   },
   participantName: {
     fontSize: 14,
+  },
+  joinButton: {
+    marginTop: 10,
+    backgroundColor: 'green',
+    paddingVertical: 8,
+    paddingHorizontal: 12,
+    borderRadius: 4,
+  },
+  joinedButton: {
+    marginTop: 10,
+    backgroundColor: 'red',
+    paddingVertical: 8,
+    paddingHorizontal: 12,
+    borderRadius: 4,
+  },
+  joinButtonText: {
+    color: 'white',
+    fontWeight: 'bold',
+  },
+  joinedButtonText: {
+    color: 'white',
+    fontWeight: 'bold',
   },
 });
