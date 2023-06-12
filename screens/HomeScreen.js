@@ -3,9 +3,7 @@ import { StyleSheet, Text, View, TouchableOpacity, ScrollView } from 'react-nati
 import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
-import EventsScreen from './EventScreen'; // Import the EventsScreen component
-import NeighbourMapScreen from './NeighbourMapScreen'; // Correct import path
-
+import EventsScreen from './EventScreen';
 
 export default function HomeScreen() {
   const navigation = useNavigation();
@@ -27,7 +25,7 @@ export default function HomeScreen() {
   };
 
   const goToEvents = () => {
-    navigation.navigate('Events'); // Navigate to the EventsScreen
+    navigation.navigate('Events');
   };
 
   return (
@@ -39,14 +37,14 @@ export default function HomeScreen() {
         </View>
         <View style={styles.notificationContainer}>
           <Text style={styles.newsTitle}>Incoming messages</Text>
-          <Text style={styles.notificationText}> John has sent you a request</Text>
+          <Text style={styles.notificationText}>John has sent you a request</Text>
         </View>
-        <TouchableOpacity style={styles.eventContainer} onPress={goToEvents}>
-          <Text style={styles.eventText}>View Events</Text>
-        </TouchableOpacity>
-        <View style={styles.mapContainer}>
-          <Text style={styles.newsTitle}>Your location</Text>
-          <NeighbourMapScreen />
+        <View style={styles.eventsContainer}>
+        <Text style={styles.newsTitle}>Latest events</Text>
+          <EventsScreen />
+          <TouchableOpacity style={styles.eventsButton} onPress={goToEvents}>
+            <Text style={styles.eventsButtonText}>View all events</Text>
+          </TouchableOpacity>
         </View>
       </ScrollView>
       <View style={styles.buttonContainer}>
@@ -94,22 +92,20 @@ const styles = StyleSheet.create({
   notificationText: {
     fontSize: 16,
   },
-  eventContainer: {
+  eventsContainer: {
     paddingHorizontal: 20,
     marginBottom: 20,
+  },
+  eventsButton: {
     backgroundColor: '#f4511e',
     paddingVertical: 10,
+    paddingHorizontal: 20,
     borderRadius: 5,
-    alignItems: 'center',
   },
-  eventText: {
+  eventsButtonText: {
     color: 'white',
     fontSize: 16,
     fontWeight: 'bold',
-  },
-  mapContainer: {
-    paddingHorizontal: 20,
-    marginBottom: 20,
   },
   buttonContainer: {
     flexDirection: 'row',
