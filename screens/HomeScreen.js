@@ -40,12 +40,13 @@ export default function HomeScreen() {
           <Text style={styles.notificationText}>John has sent you a request</Text>
         </View>
         <View style={styles.eventsContainer}>
-        <Text style={styles.newsTitle}>Latest events</Text>
-          <EventsScreen />
+          <Text style={styles.newsTitle}>Latest events</Text>
+          <EventsScreen limit={2} />
           <TouchableOpacity style={styles.eventsButton} onPress={goToEvents}>
             <Text style={styles.eventsButtonText}>View all events</Text>
           </TouchableOpacity>
         </View>
+
       </ScrollView>
       <View style={styles.buttonContainer}>
         <TouchableOpacity style={styles.button} onPress={goToQuickMessage}>
