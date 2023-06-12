@@ -71,6 +71,8 @@ const styles = StyleSheet.create({
   newsFeedContainer: {
     backgroundColor: 'lightgray',
     padding: 10,
+
+     
     marginBottom: 10,
   },
   newsTitle: {
