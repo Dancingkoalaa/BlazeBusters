@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View, Linking, Button } from 'react-native';
 
-export default function QuickMessageScreen() {
+const QuickMessageScreen = () => {
   return (
     <View style={styles.container}>
       <Text>Welcome to the Snel Berichten!</Text>
@@ -17,3 +17,5 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
+
+export default QuickMessageScreen;

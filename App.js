@@ -9,6 +9,8 @@ import NeighbourMapScreen from './screens/NeighbourMapScreen';
 import QuickMessageScreen from './screens/QuickMessageScreen';
 import ProfileEditScreen from './screens/user-profile/ProfileEditScreen';
 import NeighbourProfileScreen from './screens/user-profile/NeighbourProfileScreen';
+import ImageSelector from './screens/Imagepicker';
+import NotificationScreen from './screens/NotificationScreen';
 import EventScreen from './screens/EventScreen';
 
 const Stack = createStackNavigator();
@@ -24,7 +26,10 @@ const App = () => {
         <Stack.Screen name="Snel Berichten" component={QuickMessageScreen} />
         <Stack.Screen name="Edit profile" component={ProfileEditScreen} />
         <Stack.Screen name="Neighbour profile" component={NeighbourProfileScreen} />
+        <Stack.Screen name="Imagepicker" component={ImageSelector} />
+        <Stack.Screen name="Notifications" component={NotificationScreen} />
         <Stack.Screen name="Neighbour profile" component={EventScreen} />
+
       </Stack.Navigator>
     </NavigationContainer>
   );
