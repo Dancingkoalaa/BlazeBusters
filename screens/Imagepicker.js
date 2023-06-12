@@ -32,7 +32,7 @@ const ImageSelector = ({ navigation }) => {
   };
 
   return (
-    <View>
+    <View style={styles.container}>
       <FlatList
         data={imagePaths}
         renderItem={renderItem}
@@ -42,7 +42,7 @@ const ImageSelector = ({ navigation }) => {
 
       {selectedImage && (
         <View>
-          <Text>Selected Color: {selectedImage}</Text>
+          <Text>Active color: {selectedImage}</Text>
           <Image
             source={imagePaths.find((item) => item.key === selectedImage).path}
             style={{ width: 100, height: 100 }}
@@ -53,6 +53,12 @@ const ImageSelector = ({ navigation }) => {
   );
 };
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 16,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   markerItem: {
     alignItems: 'center',
     marginBottom: 20,

@@ -28,7 +28,6 @@ const App = () => {
         <Stack.Screen name="Neighbour profile" component={NeighbourProfileScreen} />
         <Stack.Screen name="Imagepicker" component={ImageSelector} />
         <Stack.Screen name="Notifications" component={NotificationScreen} />
-        <Stack.Screen name="Neighbour profile" component={EventScreen} />
 
       </Stack.Navigator>
     </NavigationContainer>
