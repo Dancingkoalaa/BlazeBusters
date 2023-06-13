@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, ScrollView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/Ionicons';
+import EventsScreen from './EventScreen';
 
 const HomeScreen = () => {
   const [joinedEvents, setJoinedEvents] = useState([]);
@@ -25,11 +26,12 @@ const HomeScreen = () => {
 
   const goToNotifications = () => {
     navigation.navigate('Notifications')
-  }
+  };
 
   const goToEvents = () => {
     navigation.navigate('Events');
   };
+
   return (
     <View style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollViewContent}>
@@ -40,6 +42,17 @@ const HomeScreen = () => {
         <View style={styles.notificationContainer}>
           <Text style={styles.newsTitle}>Incoming messages</Text>
           <Text style={styles.notificationText}>John has sent you a request</Text>
+        </View>
+        <View style={styles.eventsContainer}>
+          <Text style={styles.newsTitle}>Latest events</Text>
+          <EventsScreen
+            limit={4}
+            joinedEvents={joinedEvents}
+            setJoinedEvents={setJoinedEvents}
+          />
+          <TouchableOpacity style={styles.eventsButton} onPress={goToEvents}>
+            <Text style={styles.eventsButtonText}>View all events</Text>
+          </TouchableOpacity>
         </View>
       </ScrollView>
       <View style={styles.buttonContainer}>
