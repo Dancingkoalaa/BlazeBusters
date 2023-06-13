@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, ScrollView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/Ionicons';
-
-
+import EventsScreen from './EventScreen';
 
 const HomeScreen = () => {
+  const [joinedEvents, setJoinedEvents] = useState([]);
   const navigation = useNavigation();
 
   const goToProfile = () => {
@@ -26,23 +26,34 @@ const HomeScreen = () => {
 
   const goToNotifications = () => {
     navigation.navigate('Notifications')
-  }
+  };
+
+  const goToEvents = () => {
+    navigation.navigate('Events');
+  };
 
   return (
     <View style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollViewContent}>
         <View style={styles.newsFeedContainer}>
-          <TouchableOpacity style={styles.button} onPress={goToNotifications}>
-            <Icon name="chatbubble-ellipses" size={20} color="white" />
-          </TouchableOpacity>
           <Text style={styles.newsTitle}>Neighbourhood News Update</Text>
           <Text style={styles.newsText}>Breaking News: Increased Security Measures Implemented in the Neighbourhood</Text>
         </View>
         <View style={styles.notificationContainer}>
           <Text style={styles.newsTitle}>Incoming messages</Text>
-          <Text style={styles.notificationText}> John has sent you a request</Text>
+          <Text style={styles.notificationText}>John has sent you a request</Text>
         </View>
-
+        <View style={styles.eventsContainer}>
+          <Text style={styles.newsTitle}>Latest events</Text>
+          <EventsScreen
+            limit={4}
+            joinedEvents={joinedEvents}
+            setJoinedEvents={setJoinedEvents}
+          />
+          <TouchableOpacity style={styles.eventsButton} onPress={goToEvents}>
+            <Text style={styles.eventsButtonText}>View all events</Text>
+          </TouchableOpacity>
+        </View>
       </ScrollView>
       <View style={styles.buttonContainer}>
         <TouchableOpacity style={styles.button} onPress={goToQuickMessage}>
@@ -65,50 +76,50 @@ const HomeScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: '#fff',
   },
   scrollViewContent: {
-    flexGrow: 1,
+    paddingVertical: 20,
   },
   newsFeedContainer: {
-    backgroundColor: 'lightgray',
-    padding: 10,
-
-     
-    marginBottom: 10,
+    paddingHorizontal: 20,
+    marginBottom: 20,
   },
   newsTitle: {
     fontSize: 18,
     fontWeight: 'bold',
-    marginBottom: 5,
+    marginBottom: 10,
   },
   newsText: {
     fontSize: 16,
   },
   notificationContainer: {
-    backgroundColor: 'lightblue',
-    padding: 10,
-    marginBottom: 10,
+    paddingHorizontal: 20,
+    marginBottom: 20,
   },
   notificationText: {
     fontSize: 16,
   },
-  mapContainer: {
-    flex: 1,
-    backgroundColor: 'mediumturquoise',
+  eventsContainer: {
+    paddingHorizontal: 20,
+    marginBottom: 20,
+  },
+  eventsButton: {
+    backgroundColor: '#f4511e',
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 5,
+  },
+  eventsButtonText: {
+    color: 'white',
+    fontSize: 16,
+    fontWeight: 'bold',
   },
   buttonContainer: {
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    right: 0,
-    backgroundColor: 'white',
-    borderTopWidth: 1,
-    borderTopColor: 'gray',
     flexDirection: 'row',
     justifyContent: 'space-around',
     paddingVertical: 10,
+    backgroundColor: '#f4511e',
   },
   button: {
     alignItems: 'center',
