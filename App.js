@@ -1,7 +1,6 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-
 import HomeScreen from './screens/HomeScreen';
 import ProfileScreen from './screens/ProfileScreen';
 import NeighbourcircleScreen from './screens/NeighbourcircleScreen';
@@ -9,7 +8,8 @@ import NeighbourMapScreen from './screens/NeighbourMapScreen';
 import QuickMessageScreen from './screens/QuickMessageScreen';
 import ProfileEditScreen from './screens/user-profile/ProfileEditScreen';
 import NeighbourProfileScreen from './screens/user-profile/NeighbourProfileScreen';
-import EventScreen from './screens/EventScreen';
+import ImageSelector from './screens/Imagepicker';
+import NotificationScreen from './screens/NotificationScreen';
 
 const Stack = createStackNavigator();
 
@@ -24,7 +24,9 @@ const App = () => {
         <Stack.Screen name="Snel Berichten" component={QuickMessageScreen} />
         <Stack.Screen name="Edit profile" component={ProfileEditScreen} />
         <Stack.Screen name="Neighbour profile" component={NeighbourProfileScreen} />
-        <Stack.Screen name="Events" component={EventScreen} />
+        <Stack.Screen name="Imagepicker" component={ImageSelector} />
+        <Stack.Screen name="Notifications" component={NotificationScreen} />
+
       </Stack.Navigator>
     </NavigationContainer>
   );
