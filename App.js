@@ -1,7 +1,6 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-
 import HomeScreen from './screens/HomeScreen';
 import ProfileScreen from './screens/ProfileScreen';
 import NeighbourcircleScreen from './screens/NeighbourcircleScreen';
@@ -11,7 +10,6 @@ import ProfileEditScreen from './screens/user-profile/ProfileEditScreen';
 import NeighbourProfileScreen from './screens/user-profile/NeighbourProfileScreen';
 import ImageSelector from './screens/Imagepicker';
 import NotificationScreen from './screens/NotificationScreen';
-import EventScreen from './screens/EventScreen';
 
 const Stack = createStackNavigator();
 

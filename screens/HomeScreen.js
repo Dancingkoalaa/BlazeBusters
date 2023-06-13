@@ -1,11 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, ScrollView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
-
-
 const HomeScreen = () => {
+  const [joinedEvents, setJoinedEvents] = useState([]);
   const navigation = useNavigation();
 
   const goToProfile = () => {
@@ -40,9 +39,8 @@ const HomeScreen = () => {
         </View>
         <View style={styles.notificationContainer}>
           <Text style={styles.newsTitle}>Incoming messages</Text>
-          <Text style={styles.notificationText}> John has sent you a request</Text>
+          <Text style={styles.notificationText}>John has sent you a request</Text>
         </View>
-
       </ScrollView>
       <View style={styles.buttonContainer}>
         <TouchableOpacity style={styles.button} onPress={goToQuickMessage}>
@@ -65,50 +63,50 @@ const HomeScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: '#fff',
   },
   scrollViewContent: {
-    flexGrow: 1,
+    paddingVertical: 20,
   },
   newsFeedContainer: {
-    backgroundColor: 'lightgray',
-    padding: 10,
-
-     
-    marginBottom: 10,
+    paddingHorizontal: 20,
+    marginBottom: 20,
   },
   newsTitle: {
     fontSize: 18,
     fontWeight: 'bold',
-    marginBottom: 5,
+    marginBottom: 10,
   },
   newsText: {
     fontSize: 16,
   },
   notificationContainer: {
-    backgroundColor: 'lightblue',
-    padding: 10,
-    marginBottom: 10,
+    paddingHorizontal: 20,
+    marginBottom: 20,
   },
   notificationText: {
     fontSize: 16,
   },
-  mapContainer: {
-    flex: 1,
-    backgroundColor: 'mediumturquoise',
+  eventsContainer: {
+    paddingHorizontal: 20,
+    marginBottom: 20,
+  },
+  eventsButton: {
+    backgroundColor: '#f4511e',
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 5,
+  },
+  eventsButtonText: {
+    color: 'white',
+    fontSize: 16,
+    fontWeight: 'bold',
   },
   buttonContainer: {
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    right: 0,
-    backgroundColor: 'white',
-    borderTopWidth: 1,
-    borderTopColor: 'gray',
     flexDirection: 'row',
     justifyContent: 'space-around',
     paddingVertical: 10,
+    backgroundColor: '#f4511e',
   },
   button: {
     alignItems: 'center',
