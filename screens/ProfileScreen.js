@@ -67,63 +67,68 @@ const ProfileScreen = ({ navigation }) => {
   };
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
+    <ScrollView style={{ backgroundColor: '#3C444B' }} contentContainerStyle={styles.container}>
+      <View style={styles.profileContainerWrapper}>
       <View style={styles.profileContainer}>
         {profilePhoto && <Image source={{ uri: profilePhoto }} style={styles.profilePhoto} />}
-        <Text style={styles.fullName}>{fullName}</Text>
+        <Text style={[styles.fullName, { color: '#FFFFFF' }]}>{fullName}</Text>
         <TouchableOpacity style={styles.editButton} onPress={handleEditProfile}>
           <Text style={styles.editButtonText}>Edit Profile</Text>
         </TouchableOpacity>
       </View>
+    </View>
       
       <View style={styles.section}>
-        <Text style={styles.sectionTitle}>BHV/EHBO experience?</Text>
-        <Text>{renderBHVAndEHBO()}</Text>
+        <Text style={[styles.sectionTitle, { color: '#FFFFFF' }]}>BHV/EHBO experience?</Text>
+        <Text style={{ color: '#FFFFFF' }}>{renderBHVAndEHBO()}</Text>
       </View>
-
+  
       <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Needed for resuscitation?</Text>
-        <Text>{renderNonResuscitation()}</Text>
+        <Text style={[styles.sectionTitle, { color: '#FFFFFF' }]}>Needed for resuscitation?</Text>
+        <Text style={{ color: '#FFFFFF' }}>{renderNonResuscitation()}</Text>
       </View>
-
+  
+     
+    <View style={styles.skillsDisabilitiesContainer}>
+      <View style={styles.skillsSection}>
+        <Text style={[styles.sectionTitle, { color: '#FFFFFF' }]}>Skills</Text>
+        <Text style={{ color: '#FFFFFF' }}>{skills}</Text>
+      </View>
+      <View style={styles.disabilitiesSection}>
+        <Text style={[styles.sectionTitle, { color: '#FFFFFF' }]}>Disabilities</Text>
+        <Text style={{ color: '#FFFFFF' }}>{disability}</Text>
+      </View>
+    </View>
+  
       <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Disabilities</Text>
-        <Text>{disability}</Text>
+        <Text style={[styles.sectionTitle, { color: '#FFFFFF' }]}>Age</Text>
+        <Text style={{ color: '#FFFFFF' }}>{age}</Text>
       </View>
-
+  
       <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Skills</Text>
-        <Text>{skills}</Text>
+        <Text style={[styles.sectionTitle, { color: '#FFFFFF' }]}>Amount of pets</Text>
+        <Text style={{ color: '#FFFFFF' }}>{pets}</Text>
       </View>
-
+  
       <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Age</Text>
-        <Text>{age}</Text>
+        <Text style={[styles.sectionTitle, { color: '#FFFFFF' }]}>Amount of household members</Text>
+        <Text style={{ color: '#FFFFFF' }}>{householdMembers}</Text>
       </View>
-
+  
       <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Amount of pets</Text>
-        <Text>{pets}</Text>
+        <Text style={[styles.sectionTitle, { color: '#FFFFFF' }]}>Spoken Languages</Text>
+        <Text style={{ color: '#FFFFFF' }}>{spokenLanguages}</Text>
       </View>
-
-      <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Amount of household members</Text>
-        <Text>{householdMembers}</Text>
-      </View>
-
-      <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Spoken Languages</Text>
-        <Text>{spokenLanguages}</Text>
-      </View>
-
+  
       {bio ? (
         <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Bio</Text>
-          <Text>{bio}</Text>
+          <Text style={[styles.sectionTitle, { color: '#FFFFFF' }]}>Bio</Text>
+          <Text style={{ color: '#FFFFFF' }}>{bio}</Text>
         </View>
       ) : null}
     </ScrollView>
   );
+  
 };
 
 const styles = StyleSheet.create({
@@ -131,10 +136,18 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     paddingVertical: 16,
     paddingHorizontal: 20,
+    backgroundColor: '#3C444B',
+  },
+  profileContainerWrapper: {
+    alignItems: 'center',
+    marginBottom: 20,
+    backgroundColor: '#25313D',
+    borderRadius: 10,
+    paddingVertical: 20, // Adjust this value as needed
+    paddingHorizontal: 10,
   },
   profileContainer: {
     alignItems: 'center',
-    marginBottom: 20,
   },
   profilePhoto: {
     width: 150,
@@ -146,15 +159,16 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
     marginBottom: 12,
+    color: '#FFFFFF',
   },
   editButton: {
-    backgroundColor: 'blue',
+    backgroundColor: '#F98D50',
     paddingVertical: 8,
     paddingHorizontal: 12,
     borderRadius: 4,
   },
   editButtonText: {
-    color: 'white',
+    color: '#FFFFFF',
     fontSize: 16,
     fontWeight: 'bold',
   },
@@ -165,8 +179,30 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
     marginBottom: 8,
+    color: '#FFFFFF',
+  },
+  skillsDisabilitiesContainer: {
+    flexDirection: 'row',
+    marginBottom: 20,
+  },
+  skillsSection: {
+    flex: 1,
+    marginRight: 10,
+    backgroundColor: '#25313D',
+    borderRadius: 10,
+    padding: 10,
+  },
+  disabilitiesSection: {
+    flex: 1,
+    marginLeft: 10,
+    backgroundColor: '#25313D',
+    borderRadius: 10,
+    padding: 10,
   },
 });
+
+
+
 
 export default ProfileScreen;
 

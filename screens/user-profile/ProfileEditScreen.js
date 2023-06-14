@@ -94,33 +94,50 @@ const ProfileEditScreen = ({ navigation }) => {
   };
 
   return (
-    <KeyboardAvoidingView style={styles.container} behavior="padding">
+    <KeyboardAvoidingView style={[styles.container, { backgroundColor: '#3C444B' }]} behavior="padding">
       <ScrollView contentContainerStyle={styles.scrollContainer}>
-        <Text>Full Name:</Text>
+        <Text style={[styles.label, { color: '#FFFFFF' }]}>Full Name:</Text>
         <TextInput
-          style={styles.input}
+          style={[styles.input, { backgroundColor: '#25313D', color: '#FFFFFF' }]}
           value={fullName}
           onChangeText={setFullName}
           placeholder="Enter your full name"
+          placeholderTextColor="#FFFFFF"
         />
-
-        <Text>Skills:</Text>
+  
+        <Text style={[styles.label, { color: '#FFFFFF' }]}>Skills:</Text>
         <TextInput
-          style={styles.input}
+          style={[styles.input, { backgroundColor: '#25313D', color: '#FFFFFF' }]}
           value={skills}
           onChangeText={setSkills}
           placeholder="Enter your skills"
+          placeholderTextColor="#FFFFFF"
         />
-
-        <Text>Disability:</Text>
-        <TextInput
-          style={styles.input}
-          value={disability}
-          onChangeText={setDisability}
-          placeholder="Enter your disability"
-        />
-
-        <Text>Profile Photo/Avatar:</Text>
+  
+        <View style={styles.skillsDisabilitiesContainer}>
+          <View style={styles.skillsSection}>
+            <Text style={[styles.label, { color: '#FFFFFF' }]}>Skills:</Text>
+            <TextInput
+              style={[styles.input, { backgroundColor: '#25313D', color: '#FFFFFF' }]}
+              value={skills}
+              onChangeText={setSkills}
+              placeholder="Enter your skills"
+              placeholderTextColor="#FFFFFF"
+            />
+          </View>
+          <View style={styles.disabilitiesSection}>
+            <Text style={[styles.label, { color: '#FFFFFF' }]}>Disabilities:</Text>
+            <TextInput
+              style={[styles.input, { backgroundColor: '#25313D', color: '#FFFFFF' }]}
+              value={disability}
+              onChangeText={setDisability}
+              placeholder="Enter your disability"
+              placeholderTextColor="#FFFFFF"
+            />
+          </View>
+        </View>
+  
+        <Text style={[styles.label, { color: '#FFFFFF' }]}>Profile Photo/Avatar:</Text>
         <TouchableOpacity style={styles.photoContainer} onPress={handleChoosePhoto}>
           {profilePhoto ? (
             <Image source={{ uri: profilePhoto }} style={styles.photo} />
@@ -128,42 +145,46 @@ const ProfileEditScreen = ({ navigation }) => {
             <Text style={styles.choosePhotoText}>Choose Photo</Text>
           )}
         </TouchableOpacity>
-
-        <Text>Age:</Text>
+  
+        <Text style={[styles.label, { color: '#FFFFFF' }]}>Age:</Text>
         <TextInput
-          style={styles.input}
+          style={[styles.input, { backgroundColor: '#25313D', color: '#FFFFFF' }]}
           value={age}
           onChangeText={setAge}
           keyboardType="numeric"
           placeholder="Enter your age"
+          placeholderTextColor="#FFFFFF"
         />
-
-        <Text>Pets:</Text>
+  
+        <Text style={[styles.label, { color: '#FFFFFF' }]}>Pets:</Text>
         <TextInput
-          style={styles.input}
+          style={[styles.input, { backgroundColor: '#25313D', color: '#FFFFFF' }]}
           value={pets}
           onChangeText={setPets}
           placeholder="Enter your pets"
+          placeholderTextColor="#FFFFFF"
         />
-
-        <Text>Number of People in Household:</Text>
+  
+        <Text style={[styles.label, { color: '#FFFFFF' }]}>Number of People in Household:</Text>
         <TextInput
-          style={styles.input}
+          style={[styles.input, { backgroundColor: '#25313D', color: '#FFFFFF' }]}
           value={householdMembers}
           onChangeText={setHouseholdMembers}
           keyboardType="numeric"
           placeholder="Enter the number of household members"
+          placeholderTextColor="#FFFFFF"
         />
-
-        <Text>Spoken Languages:</Text>
+  
+        <Text style={[styles.label, { color: '#FFFFFF' }]}>Spoken Languages:</Text>
         <TextInput
-          style={styles.input}
+          style={[styles.input, { backgroundColor: '#25313D', color: '#FFFFFF' }]}
           value={spokenLanguages}
           onChangeText={setSpokenLanguages}
           placeholder="Enter your spoken languages"
+          placeholderTextColor="#FFFFFF"
         />
-
-        <Text>Non-Resuscitation Declaration:</Text>
+  
+        <Text style={[styles.label, { color: '#FFFFFF' }]}>Non-Resuscitation Declaration:</Text>
         <View style={styles.switchContainer}>
           <Switch
             value={nonResuscitation}
@@ -171,10 +192,10 @@ const ProfileEditScreen = ({ navigation }) => {
             trackColor={{ false: '#767577', true: '#81b0ff' }}
             thumbColor={nonResuscitation ? '#f5dd4b' : '#f4f3f4'}
           />
-          <Text>{nonResuscitation ? 'Yes' : 'No'}</Text>
+          <Text style={{ color: '#FFFFFF' }}>{nonResuscitation ? 'Yes' : 'No'}</Text>
         </View>
-
-        <Text>BHV or/and EHBO:</Text>
+  
+        <Text style={[styles.label, { color: '#FFFFFF' }]}>BHV or/and EHBO:</Text>
         <View style={styles.buttonsContainer}>
           <TouchableOpacity
             style={[styles.button, bhv ? styles.buttonSelected : null]}
@@ -189,20 +210,22 @@ const ProfileEditScreen = ({ navigation }) => {
             <Text style={styles.buttonText}>EHBO</Text>
           </TouchableOpacity>
         </View>
-
-        <Text>Biography(optional):</Text>
+  
+        <Text style={[styles.label, { color: '#FFFFFF' }]}>Biography(optional):</Text>
         <TextInput
-          style={styles.input}
+          style={[styles.input, { backgroundColor: '#25313D', color: '#FFFFFF' }]}
           value={bio}
           onChangeText={setBio}
           multiline
           placeholder="Enter your biography"
+          placeholderTextColor="#FFFFFF"
         />
-
-        <Button title="Save Profile" onPress={saveProfile} />
+  
+        <Button title="Save Profile" onPress={saveProfile} color="#FFFFFF" />
       </ScrollView>
     </KeyboardAvoidingView>
   );
+  
 };
 
 const styles = StyleSheet.create({
