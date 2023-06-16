@@ -5,8 +5,9 @@ const QuickMessageScreen = () => {
   return (
     <View style={styles.container}>
       <Text>Welcome to the Snel Berichten!</Text>
-      <Button onPress={()=>{Linking.openURL(`tel:${+310682371526}`);}} title='Bel Tim'></Button>
+      <Button onPress={()=>{Linking.openURL(`tel:${+310682371526}`);}} title='Noodoproep'></Button>
     </View>
+    
   );
 }
 
