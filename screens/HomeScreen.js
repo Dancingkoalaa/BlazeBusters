@@ -34,16 +34,16 @@ const HomeScreen = () => {
 
   return (
     <View style={styles.container}>
-      <ScrollView contentContainerStyle={styles.scrollViewContent}>
-        <View style={styles.newsFeedContainer}>
+        <ScrollView contentContainerStyle={styles.scrollViewContent}>
+        <View style={[styles.newsFeedContainer, { backgroundColor: '#ECECEC' }]}>
           <Text style={styles.newsTitle}>Neighbourhood News Update</Text>
           <Text style={styles.newsText}>Breaking News: Increased Security Measures Implemented in the Neighbourhood</Text>
         </View>
-        <View style={styles.notificationContainer}>
+        <View style={[styles.notificationContainer, { backgroundColor: '#ECECEC' }]}>
           <Text style={styles.newsTitle}>Incoming messages</Text>
           <Text style={styles.notificationText}>John has sent you a request</Text>
         </View>
-        <View style={styles.eventsContainer}>
+        <View style={[styles.eventsContainer, { backgroundColor: '#ECECEC' }]}>
           <Text style={styles.newsTitle}>Latest events</Text>
           <EventsScreen
             limit={4}

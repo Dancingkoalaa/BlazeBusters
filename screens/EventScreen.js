@@ -23,7 +23,6 @@ const EventsScreen = () => {
     }
   };
 
-
   const toggleJoinEvent = async (eventId) => {
     const updatedEvents = events.map((event) => {
       if (event.id === eventId) {
@@ -179,14 +178,14 @@ const styles = StyleSheet.create({
   },
   joinButton: {
     marginTop: 10,
-    backgroundColor: 'green',
+    backgroundColor: '#CDCBCB',
     paddingVertical: 8,
     paddingHorizontal: 12,
     borderRadius: 4,
   },
   joinedButton: {
     marginTop: 10,
-    backgroundColor: 'red',
+    backgroundColor: '#a5ba50',
     paddingVertical: 8,
     paddingHorizontal: 12,
     borderRadius: 4,
