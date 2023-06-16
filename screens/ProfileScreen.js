@@ -67,65 +67,67 @@ const ProfileScreen = ({ navigation }) => {
   };
 
   return (
-    <ScrollView style={{ backgroundColor: '#3C444B' }} contentContainerStyle={styles.container}>
+    <ScrollView style={{ backgroundColor: '#FFFFFF' }} contentContainerStyle={styles.container}>
       <View style={styles.profileContainerWrapper}>
       <View style={styles.profileContainer}>
         {profilePhoto && <Image source={{ uri: profilePhoto }} style={styles.profilePhoto} />}
-        <Text style={[styles.fullName, { color: '#FFFFFF' }]}>{fullName}</Text>
+        <Text style={[styles.fullName, { color: '#25313D' }]}>{fullName}</Text>
         <TouchableOpacity style={styles.editButton} onPress={handleEditProfile}>
           <Text style={styles.editButtonText}>Edit Profile</Text>
         </TouchableOpacity>
       </View>
     </View>
+    
+    {bio ? (
+        <View style={styles.section}>
+          <Text style={[styles.sectionTitle, { color: '#25313D' }]}>Bio</Text>
+          <Text style={{ color: '#25313D' }}>{bio}</Text>
+        </View>
+      ) : null}
+
+      <View style={styles.section}>
+        <Text style={[styles.sectionTitle, { color: '#25313D' }]}>Spoken Languages</Text>
+        <Text style={{ color: '#25313D' }}>{spokenLanguages}</Text>
+      </View>
       
       <View style={styles.section}>
-        <Text style={[styles.sectionTitle, { color: '#FFFFFF' }]}>BHV/EHBO experience?</Text>
-        <Text style={{ color: '#FFFFFF' }}>{renderBHVAndEHBO()}</Text>
+        <Text style={[styles.sectionTitle, { color: '#25313D' }]}>BHV/EHBO experience?</Text>
+        <Text style={{ color: '#25313D' }}>{renderBHVAndEHBO()}</Text>
       </View>
   
       <View style={styles.section}>
-        <Text style={[styles.sectionTitle, { color: '#FFFFFF' }]}>Needed for resuscitation?</Text>
-        <Text style={{ color: '#FFFFFF' }}>{renderNonResuscitation()}</Text>
+        <Text style={[styles.sectionTitle, { color: '#25313D' }]}>Needed for resuscitation?</Text>
+        <Text style={{ color: '#25313D' }}>{renderNonResuscitation()}</Text>
       </View>
   
      
     <View style={styles.skillsDisabilitiesContainer}>
       <View style={styles.skillsSection}>
-        <Text style={[styles.sectionTitle, { color: '#FFFFFF' }]}>Skills</Text>
-        <Text style={{ color: '#FFFFFF' }}>{skills}</Text>
+        <Text style={[styles.sectionTitle, { color: '#25313D' }]}>Skills</Text>
+        <Text style={{ color: '#25313D' }}>{skills}</Text>
       </View>
       <View style={styles.disabilitiesSection}>
-        <Text style={[styles.sectionTitle, { color: '#FFFFFF' }]}>Disabilities</Text>
-        <Text style={{ color: '#FFFFFF' }}>{disability}</Text>
+        <Text style={[styles.sectionTitle, { color: '#25313D' }]}>Disabilities</Text>
+        <Text style={{ color: '#25313D' }}>{disability}</Text>
       </View>
     </View>
   
       <View style={styles.section}>
-        <Text style={[styles.sectionTitle, { color: '#FFFFFF' }]}>Age</Text>
-        <Text style={{ color: '#FFFFFF' }}>{age}</Text>
+        <Text style={[styles.sectionTitle, { color: '#25313D' }]}>Age</Text>
+        <Text style={{ color: '#25313D' }}>{age}</Text>
       </View>
   
       <View style={styles.section}>
-        <Text style={[styles.sectionTitle, { color: '#FFFFFF' }]}>Amount of pets</Text>
-        <Text style={{ color: '#FFFFFF' }}>{pets}</Text>
+        <Text style={[styles.sectionTitle, { color: '#25313D' }]}>Amount of pets</Text>
+        <Text style={{ color: '#25313D' }}>{pets}</Text>
       </View>
   
       <View style={styles.section}>
-        <Text style={[styles.sectionTitle, { color: '#FFFFFF' }]}>Amount of household members</Text>
-        <Text style={{ color: '#FFFFFF' }}>{householdMembers}</Text>
+        <Text style={[styles.sectionTitle, { color: '#25313D' }]}>Amount of household members</Text>
+        <Text style={{ color: '#25313D' }}>{householdMembers}</Text>
       </View>
   
-      <View style={styles.section}>
-        <Text style={[styles.sectionTitle, { color: '#FFFFFF' }]}>Spoken Languages</Text>
-        <Text style={{ color: '#FFFFFF' }}>{spokenLanguages}</Text>
-      </View>
   
-      {bio ? (
-        <View style={styles.section}>
-          <Text style={[styles.sectionTitle, { color: '#FFFFFF' }]}>Bio</Text>
-          <Text style={{ color: '#FFFFFF' }}>{bio}</Text>
-        </View>
-      ) : null}
     </ScrollView>
   );
   
@@ -136,12 +138,12 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     paddingVertical: 16,
     paddingHorizontal: 20,
-    backgroundColor: '#3C444B',
+    backgroundColor: '#FFFFFF',
   },
   profileContainerWrapper: {
     alignItems: 'center',
     marginBottom: 20,
-    backgroundColor: '#25313D',
+    backgroundColor: '#ECECEC',
     borderRadius: 10,
     paddingVertical: 20, // Adjust this value as needed
     paddingHorizontal: 10,
@@ -188,14 +190,14 @@ const styles = StyleSheet.create({
   skillsSection: {
     flex: 1,
     marginRight: 10,
-    backgroundColor: '#25313D',
+    backgroundColor: '#ECECEC',
     borderRadius: 10,
     padding: 10,
   },
   disabilitiesSection: {
     flex: 1,
     marginLeft: 10,
-    backgroundColor: '#25313D',
+    backgroundColor: '#ECECEC',
     borderRadius: 10,
     padding: 10,
   },
